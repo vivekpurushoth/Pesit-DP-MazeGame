@@ -3,27 +3,36 @@ package com.pesit.maze;
 /**
  * Created by vp2 on 20/02/16.
  */
-abstract class MazeGame {
 
+//This is the class that creates the Maze
+public class MazeGame {
 
+    //Sample Maze created for reference
+    public Maze CreateMaze(MazeFactory factory) {
 
-    //This method is used to create a new maze
-    public Maze MakeMaze() {
+        if(factory == null){
+            return null;
+        }
 
-    }
+        Maze myAwesomeMaze = factory.MakeMaze();
 
-    //This method is used to create a room with an id
-    public Room MakeRoom(int id) {
+        Room r1 = factory.MakeRoom(1);
+        Room r2 = factory.MakeRoom(2);
+        Door myCoolDoor = factory.MakeDoor(r1, r2);
 
-    }
+        myAwesomeMaze.AddRoom(r1);
+        myAwesomeMaze.AddRoom(r2);
 
-    //This method is used to create a door between 2 rooms
-    public Door MakeDoor(int r1, int r2) {
+        r1.setSide(Direction.East, myCoolDoor);
+        r1.setSide(Direction.West, factory.MakeWall());
+        r1.setSide(Direction.South, factory.MakeWall());
+        r1.setSide(Direction.North, factory.MakeWall());
 
-    }
+        r2.setSide(Direction.East, factory.MakeWall());
+        r2.setSide(Direction.West, myCoolDoor);
+        r2.setSide(Direction.South, factory.MakeWall());
+        r2.setSide(Direction.North, factory.MakeWall());
 
-    //This method is used to create a wall in the Maze
-    public Wall MakeWall() {
-
+        return myAwesomeMaze;
     }
 }
